@@ -16,24 +16,32 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s, box-shadow 0.3s;
     }
-
     .answer-box:hover {
-      transform: translateY(-4px);
+      transform: translateX(6px);
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
     }
-
     .answer-box b {
       color: #00695c;
       font-size: 1.1rem;
       text-shadow: 0 0 2px #b2dfdb;
     }
-
     .answer-box p {
       margin-top: 8px;
       color: #004d40;
       font-size: 1rem;
       line-height: 1.7;
       text-align: justify;
+    }
+
+    /* Slide-In from Left Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: all 0.8s ease-in-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateX(0);
     }
   </style>
 </head>
@@ -42,7 +50,7 @@
     <h1>Tidal Power Plant Architecture</h1>
     <img src="Tidal.png" alt="Tidal Power Plant Diagram">
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Source of Energy:</b>
       <p>
         Tidal energy originates from the gravitational pull of the Moon and the Sun on Earth’s oceans, 
@@ -51,7 +59,7 @@
       </p>
     </div>
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Conversion Process:</b>
       <p>
         In a tidal power plant, the flow of seawater during high and low tides drives underwater turbines 
@@ -61,7 +69,7 @@
       </p>
     </div>
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Output / Utilization:</b>
       <p>
         The main output is clean, renewable electrical power used to supply homes, public facilities, 
@@ -70,7 +78,7 @@
       </p>
     </div>
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Real-World Application Relevance:</b>
       <p>
         Successful examples like the La Rance Tidal Power Plant (France) and Sihwa Lake Project (South Korea) 
@@ -79,5 +87,23 @@
       </p>
     </div>
   </div>
+
+  <script>
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const revealTop = reveals[i].getBoundingClientRect().top;
+        const revealPoint = 100;
+        if (revealTop < windowHeight - revealPoint) {
+          reveals[i].classList.add('active');
+        } else {
+          reveals[i].classList.remove('active');
+        }
+      }
+    }
+    window.addEventListener('scroll', reveal);
+    reveal();
+  </script>
 </body>
 </html>

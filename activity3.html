@@ -8,7 +8,6 @@
   <style>
     .answer-box {
       background: #ffffffcc;
-      backdrop-filter: blur(4px);
       border-left: 6px solid #0288d1;
       border-radius: 10px;
       padding: 20px 25px;
@@ -17,20 +16,29 @@
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .answer-box:hover {
-      transform: translateY(-4px);
+      transform: translateX(6px);
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
     }
     .answer-box b {
       color: #01579b;
       font-size: 1.1rem;
-      text-shadow: 0 0 2px #bbdefb;
     }
     .answer-box p {
       margin-top: 8px;
       color: #0d47a1;
-      font-size: 1rem;
       line-height: 1.7;
       text-align: justify;
+    }
+
+    /* Slide-In from Left */
+    .reveal {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: all 0.8s ease-in-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateX(0);
     }
   </style>
 </head>
@@ -39,7 +47,7 @@
     <h1>Geothermal Power Plant System</h1>
     <img src="geothermal.png" alt="Geothermal Power Plant Diagram">
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Source of Energy:</b>
       <p>
         The source of energy for a geothermal power plant is the heat stored beneath the Earth’s surface, particularly from geothermal reservoirs 
@@ -48,7 +56,7 @@
       </p>
     </div>
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Conversion Process:</b>
       <p>
         Hot water or steam from deep wells is extracted through production wells and directed to a turbine. The steam pressure spins the turbine blades, 
@@ -57,7 +65,7 @@
       </p>
     </div>
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Output / Utilization:</b>
       <p>
         The main output is clean, renewable electricity, which can power homes, industries, and public utilities. 
@@ -65,7 +73,7 @@
       </p>
     </div>
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Real-World Application Relevance:</b>
       <p>
         Geothermal power plants provide reliable baseload electricity with minimal environmental impact. 
@@ -74,5 +82,23 @@
       </p>
     </div>
   </div>
+
+  <script>
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const revealTop = reveals[i].getBoundingClientRect().top;
+        const revealPoint = 100;
+        if (revealTop < windowHeight - revealPoint) {
+          reveals[i].classList.add('active');
+        } else {
+          reveals[i].classList.remove('active');
+        }
+      }
+    }
+    window.addEventListener('scroll', reveal);
+    reveal();
+  </script>
 </body>
 </html>

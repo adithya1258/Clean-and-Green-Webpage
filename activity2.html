@@ -8,7 +8,6 @@
   <style>
     .answer-box {
       background: #ffffffcc;
-      backdrop-filter: blur(4px);
       border-left: 6px solid #388e3c;
       border-radius: 10px;
       padding: 20px 25px;
@@ -17,20 +16,29 @@
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .answer-box:hover {
-      transform: translateY(-4px);
+      transform: translateX(6px);
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
     }
     .answer-box b {
       color: #2e7d32;
       font-size: 1.1rem;
-      text-shadow: 0 0 2px #c8e6c9;
     }
     .answer-box p {
       margin-top: 8px;
       color: #1b5e20;
-      font-size: 1rem;
       line-height: 1.7;
       text-align: justify;
+    }
+
+    /* Slide-In from Left */
+    .reveal {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: all 0.8s ease-in-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateX(0);
     }
   </style>
 </head>
@@ -39,7 +47,7 @@
     <h1>Biogas Generation System for Dairy Farm</h1>
     <img src="biogas.jpeg" alt="Biogas System Diagram">
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Source of Energy:</b>
       <p>
         The primary source of energy in a biogas generation system is organic biomass, mainly cattle manure, crop residues, 
@@ -48,7 +56,7 @@
       </p>
     </div>
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Conversion Process:</b>
       <p>
         The process occurs in an anaerobic digester, where microorganisms break down organic matter in the absence of oxygen. 
@@ -57,7 +65,7 @@
       </p>
     </div>
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Output / Utilization:</b>
       <p>
         The main output is biogas, which can be used for cooking, lighting, water heating, or power generation through a biogas engine or generator. 
@@ -65,7 +73,7 @@
       </p>
     </div>
 
-    <div class="answer-box">
+    <div class="answer-box reveal">
       <b>Real-World Application Relevance:</b>
       <p>
         Biogas plants on dairy farms help manage waste sustainably, reduce methane emissions, and lower energy costs. 
@@ -74,5 +82,23 @@
       </p>
     </div>
   </div>
+
+  <script>
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const revealTop = reveals[i].getBoundingClientRect().top;
+        const revealPoint = 100;
+        if (revealTop < windowHeight - revealPoint) {
+          reveals[i].classList.add('active');
+        } else {
+          reveals[i].classList.remove('active');
+        }
+      }
+    }
+    window.addEventListener('scroll', reveal);
+    reveal();
+  </script>
 </body>
 </html>
